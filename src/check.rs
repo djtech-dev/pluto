@@ -1,4 +1,4 @@
-use crate::defs::{Transaction, Wallet, Client, LocalClient};
+use crate::{defs::{Client, LocalClient, Spawn, Transaction, Wallet}, amounts::CalculateAmount};
 
 pub trait CheckHistory {
     fn check_history(&mut self);
@@ -19,18 +19,33 @@ impl CheckHistory for LocalClient {
 }
 impl CheckHistory for Wallet {
     fn check_history(&mut self) {
-        for t in &mut self.transactions {
+        let mut amount: u128 = 0;
+        for x in 0..(self.transactions.len()) {
+            let t = &mut self.transactions[x];
             t.check_history();
+            amount = self.calculate_partial(x);
         }
+        assert_eq!(amount, self.calculate_amount());
     }
 }
 impl CheckHistory for Transaction {
     fn check_history(&mut self) {
-        if !self.from.transactions.contains(&self) {
+        if !self.from.transactions.contains(self) {
             self.from.transactions.push(self.clone());
         }
-        if !self.to.transactions.contains(&self) {
+        if !self.to.transactions.contains(self) {
             self.to.transactions.push(self.clone());
         }
     }
 }
+impl CheckHistory for Spawn {
+    fn check_history(&mut self) {
+        assert_eq!(
+            self.spawned_by.id,
+            self.checked_transaction.checked_by.as_ref().unwrap().id
+        );
+        self.checked_transaction.check_history();
+    }
+}
+
+
