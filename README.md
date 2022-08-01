@@ -1,10 +1,3 @@
-# Project Solar - Redesigning cryptocurrencies
+# Project Solar - Designing The Future
 
-`
-    ____               _           __     _____       __          
-   / __ \_________    (_)__  _____/ /_   / ___/____  / /___ ______
-  / /_/ / ___/ __ \  / / _ \/ ___/ __/   \__ \/ __ \/ / __ `/ ___/
- / ____/ /  / /_/ / / /  __/ /__/ /_    ___/ / /_/ / / /_/ / /    
-/_/   /_/   \____/_/ /\___/\___/\__/   /____/\____/_/\__,_/_/     
-                /___/                                             
-`
+NOTE: This an alpha! If you want to collaborate, read the source code! The `pluto` client is written in Rust and the blockchain system is based on IPFS. The Pluto token uses a semplified proof-of-work.
